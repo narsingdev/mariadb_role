@@ -1,0 +1,28 @@
+---
+  - name: installing {{ web_pkg }} pkg
+    dnf:
+      name: "{{ web_pkg }}"
+      state: present
+
+  - name: start and enable {{ web_svc }} service
+    service:
+      name: "{{ web_svc }}"
+      state: started
+      enabled: true
+
+  - name: opening {{ web_rule }} service in the firewall
+    firewalld:
+      service: "{{ web_rule }}"
+      state: enabled
+      permanent: true
+      immediate: true
+
+  - name: copying test.txt file to managed hosts
+    copy:
+      src: test.txt
+      dest: /home/admin
+    notify:
+      - restart apache
+
+
+

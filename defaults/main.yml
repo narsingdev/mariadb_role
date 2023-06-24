@@ -1,0 +1,4 @@
+---
+web_pkg: mariadb-server
+web_svc: mariadb
+web_rule: mysql
